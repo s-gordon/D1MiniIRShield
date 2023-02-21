@@ -1,0 +1,92 @@
+substitutions:
+  name: "irremote-ROOMNAME"
+  project_name: "D1MiniIRRemote.Remote"
+  project_version: "1.0"
+  room: "ROOM NAME"
+  friendly_name: "IRRemote ROOM NAME"
+  device_ip: XXX.XXX.XXX.XXX
+  roomshort: "ROOMNAME"
+
+esphome:
+  name: "${name}"
+  name_add_mac_suffix: true
+  project:
+    name: "${project_name}"
+    version: "${project_version}"
+
+esp8266:
+  board: d1_mini
+
+logger:
+
+api:
+  encryption:
+    key: !secret apikey
+
+ota:
+  password: !secret ota_password
+
+wifi:
+  fast_connect: true
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    static_ip: ${device_ip}
+    gateway: !secret gateway
+    subnet: !secret subnet
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "${name} AP"
+    password: !secret ap_password
+
+captive_portal:
+
+remote_transmitter:
+  pin: D7
+  carrier_duty_percent: 50%
+  id: ir_transmitter
+
+remote_receiver:
+  pin:
+    number: D6
+    inverted: True
+    mode:
+      input: true
+      pullup: true
+  dump: all
+  id: ir_receiver
+
+sensor:
+  - platform: homeassistant
+    name: "${room} Temperature from HA"
+    entity_id: !secret SENSOR_NAME
+    id: temperature_sensor
+
+# optionally control AC units
+climate:
+  - platform: daikin
+    supports_cool: True
+    supports_heat: True
+    visual:
+      max_temperature: 26
+      min_temperature: 16
+      temperature_step: 1
+    id: ${roomshort}_ac
+    name: "${room} AC"
+    receiver_id: ir_receiver
+    sensor: temperature_sensor
+
+button:
+  - platform: restart
+    name: Restart_internal
+    id: restart_internal
+    entity_category: config 
+    internal: true
+  # optionally define buttons for controlling other devices such as TVs
+  - platform: template
+    name: "Hisense TV power toggle"
+    on_press:
+      remote_transmitter.transmit_nec:
+        address: 0xBF00
+        command: 0xF20D
