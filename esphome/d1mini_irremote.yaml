@@ -42,6 +42,10 @@ wifi:
 
 captive_portal:
 
+dashboard_import:
+  package_import_url: github://s-gordon/D1MiniIRShield/esphome/d1mini_irremote.yaml@v1.0rc1
+  import_full_config: false
+
 remote_transmitter:
   pin: D7
   carrier_duty_percent: 50%
