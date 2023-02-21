@@ -12,6 +12,6 @@ I wanted a way to control my IR devices, such as TVs and air conditioners, witho
 | -- | -- |
 | ![3-dimensional view](/images/PCB.png) | ![2-dimensional view](/images/PCB-2d.png) |
 
-## Credit
+## Credits
 
-TODO
+Created and maintained by Shane Gordon (@s-gordon).
