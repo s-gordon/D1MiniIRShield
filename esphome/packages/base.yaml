@@ -33,17 +33,6 @@ remote_receiver:
   dump: all
   id: ir_receiver
 
-climate:
-  - platform: coolix
-    supports_cool: True
-    supports_heat: True
-    visual:
-      max_temperature: 26
-      min_temperature: 16
-      temperature_step: 1
-    name: AC
-    receiver_id: ir_receiver
-
 button:
   - platform: restart
     name: Restart_internal
