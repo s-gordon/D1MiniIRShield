@@ -7,4 +7,3 @@ climate:
       min_temperature: 16
       temperature_step: 1
     name: AC
-    receiver_id: ir_receiver
