@@ -1,0 +1,39 @@
+esphome:
+  name: "${name}"
+  friendly_name: ${friendly_name}
+
+  project:
+    name: "${project_name}"
+    version: "${project_version}"
+
+esp8266:
+  board: d1_mini
+
+logger:
+
+wifi:
+  ap:
+    ssid: "${name}"
+
+captive_portal:
+
+remote_transmitter:
+  pin: D7
+  carrier_duty_percent: 50%
+  id: ir_transmitter
+
+remote_receiver:
+  pin:
+    number: D6
+    inverted: True
+    mode:
+      input: true
+      pullup: true
+  dump: all
+  id: ir_receiver
+
+button:
+  - platform: restart
+    name: Restart_internal
+    entity_category: config
+    internal: true
