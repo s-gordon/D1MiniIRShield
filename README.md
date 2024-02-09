@@ -36,6 +36,7 @@ packages:
       # comment out the others
       - esphome/packages/daikin.yaml
       - esphome/packages/coolix.yaml
+      - esphome/packages/fujitsu.yaml
 
 # Enable Home Assistant API
 api:
